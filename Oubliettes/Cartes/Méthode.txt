@@ -1,0 +1,13 @@
+Prendre une carte que de routes sur https://macarte.ign.fr/edition/carte/
+Faire une capture d'écran
+Dans Paint.net ouvrir la carte sur le calque supérieur
+Régler son mode de fusion sur "densité couleur"
+Mettre en arrière plan un fond noir
+
+
+
+parcours de graphe
+en regardant chaque pixel et ses voisins
+si un voisin coloré sur les 8 --> ce pixel est un noeud "souple"
+si 2 Voisins Colorés sur les 8 --> on définit une arrête ou on étend une précédente si on avait un noeud souple à coté
+si + que 3 voisins colorés --> noeud "fixe"
