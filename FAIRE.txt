@@ -1,0 +1,48 @@
+Résumé : A S'Y TENIR !
+L'utilisateur fournit une ville --> graphe complet
+L'utilisateur fournit des moyens de transports et leurs vitesse en fonction des arrêts --> pour chaque transport il y a des restrictions sur le graphe / et fonction poids qui leur est propre
+L'utilisateur fournit un point de départ, un point d'arrivé et des points d'intérêt --> 2 points, et une collection de points munie d'un fonction intérêt qui le quantifie
+
+A DISPOSITION : 
+Internet
+Le prof
+La feuille du 11/09 dans le carnet
+Le programme minimise le temps de trajet en manipulant l'enchainement des moyens de transports. 
+Il fournit en sortie un trajet lié à un enchainement de moyens de transports.
+
+A RECHERCHER : 
+1.Qui sont et comment fonctionne les app de road trip ?
+2.Se renseigner sur la fonction de minimisation.
+(On sait déjà qu'elle dépend du temps donc du moyens de transport entre 2 points d'intérêt et qu'elle de l'intérêt combiné en 2 points d'intérêt et ce pour tout arrêtes)
+
+Réponses aux recherches:
+1. Qui : Rome2rio
+Voir travel (meta)search engine
+Comment : On donne une liste de lieux dans un ordre fixé, le site trouve le chemin le plus court en empruntant les modes de transports les plus adaptés.
+2. Ici, ce qu'on veut en plus c'est renvoyé le chemin le plus court en empruntant tout en prenant en compte l'intérêt porté à chaque lieu.
+On a construit un A* modifié qui a pour but de minimiser la distance entre tout les points d'intérêt. (Repose sur "Tout point d'un plus court chemin fournit un plus court chemin depuis une extrémité du chemin")
+Il faut un A* modifié minimise la distance entre les points d'intérêt en fonction des divers moyens de transport et intérêt de chaque point.
+
+A IMPLEMENTER : 
+1.Les moyens de transport
+2.La fonction intérêt
+3.La fonction de minimisation
+La combinaison des intérêts
+
+Implémentation:
+1. Les moyens de transport sont des fonctions poids. Pour chaque type, pour tenir compte des endroits inaccessibles (en dehors des obstacles de toute la ville) la fonction poids renvoit 'infini' en ces endroits.
+exemples :
+ - à pieds : lent (poids fort), accès à tout
+ - en voiture : rapide (poids faible), accès à presque tout (pkp que les axes verticaux et horizontaux)
+ - en tram/métro : très rapide (poids assez faible), accès très restreint (mais plrs lignes)
+On définit alors une fonction
+2. Les intérêts (i_k) de chaque point (p_k) fournis sont quantifiés (à préciser).
+La fonction intérêt I prend en entrer i_n,i_m (qu'on assimile à p_n,p_m).
+On décide que l'on a pas d'intérêt de rester au même endroit --> I(i_n,i_m) = 0 (ou très petit)
+On décide qu'on a plus intérêt à aller vers le point d'intérêt le plus élevé --> I(i_n,i_m) = expr
+On décide que si les intérêts sont les mêmes, il est plus intéressant de regarder ce qu'aurait dans tel où tel cas (sinon choix aléatoire/par défaut)
+3. On suppose I la fonction intérêt bien définie.
+Puisqu'on veut aller à l'endroit le plus proche (selon ce qui faut) où l'intérêt est le plus élévé, et comme I croit en fonction de l'intérêt et D croit en fonction de la proximité.
+On minimise I^(-x)*D^(y) où x,y sont des poids positifs.
+Question : Est-ce qu'à chaque fois en un point p_k, je cherche le point p_m et le moyen de transport tel que [I^(-x)*D^(y)](p_k,p_m) soit minimal ?
+  Ou bien  Est-ce que on cherche l'ordre des points et les transports qui minimise la somme des [I^(-x)*D^(y)](p_k,p_l) ?
