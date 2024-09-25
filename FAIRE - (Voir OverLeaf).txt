@@ -5,7 +5,7 @@ L'utilisateur fournit un point de départ, un point d'arrivé et des points d'in
 
 A DISPOSITION : 
 Internet
-Le prof
+T.Pochart
 La feuille du 11/09 dans le carnet
 Le programme minimise le temps de trajet en manipulant l'enchainement des moyens de transports. 
 Il fournit en sortie un trajet lié à un enchainement de moyens de transports.
@@ -43,6 +43,21 @@ On décide qu'on a plus intérêt à aller vers le point d'intérêt le plus él
 On décide que si les intérêts sont les mêmes, il est plus intéressant de regarder ce qu'aurait dans tel où tel cas (sinon choix aléatoire/par défaut)
 3. On suppose I la fonction intérêt bien définie.
 Puisqu'on veut aller à l'endroit le plus proche (selon ce qui faut) où l'intérêt est le plus élévé, et comme I croit en fonction de l'intérêt et D croit en fonction de la proximité.
-On minimise I^(-x)*D^(y) où x,y sont des poids positifs.
+On minimise I^(-x)*D^(y) où x,y sont des poids positifs qui sont A CHOISIR.
 Question : Est-ce qu'à chaque fois en un point p_k, je cherche le point p_m et le moyen de transport tel que [I^(-x)*D^(y)](p_k,p_m) soit minimal ?
   Ou bien  Est-ce que on cherche l'ordre des points et les transports qui minimise la somme des [I^(-x)*D^(y)](p_k,p_l) ?
+|--> Réponse : On fait le 2eme truc c'est plus intéressant car le 1er est finalement plus restreint : on considère moins de cas, car on ne bénéficie plus du Thm "Tout point d'un plus court chemin fournit un plus court chemin depuis une extrémité du chemin".
+
+
+25/09/24
+On refait le programme.
+On change du graphe en coordonnées en étiquettes (uniques).
+Cela implique :
+- de refaire les programmes de générations <-- OK c'était déjà le cas
+- de légèrement changer les algo de parcours
+- de changer la fonction d'affichage
+- Surtout de changer les fonctions poids.
+Pour une fonction poids donnée w, pour i,j des étiquettes w[i,j] renvoie le poids de l'arrête i,j. Pour rappel les fonctions poids sont données par l'utilisateur (donc générées avant les calculs)
+Pour info on les refait en implémentant les modes de transport décrits.
+Durant l'implémentation on se rend compte que le métro peut passer à "sous les immeubles" (obstacles); on fournit à sa fonction poids l'ensemble des points où lignes de métro passent donc le graphe à considérer est plus grand.
+temp : finir métro avec la ligne "graph_modifié=graph # + points_traversés_par_métro"
