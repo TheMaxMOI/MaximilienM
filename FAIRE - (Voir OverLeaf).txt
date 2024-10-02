@@ -61,3 +61,24 @@ Pour une fonction poids donnée w, pour i,j des étiquettes w[i,j] renvoie le po
 Pour info on les refait en implémentant les modes de transport décrits.
 Durant l'implémentation on se rend compte que le métro peut passer à "sous les immeubles" (obstacles); on fournit à sa fonction poids l'ensemble des points où lignes de métro passent donc le graphe à considérer est plus grand.
 temp : finir métro avec la ligne "graph_modifié=graph # + points_traversés_par_métro"
+
+02/10/24
+Les poids sont implémentés. On note qu'il est nécessaire que les lignes de métro soient accessibles par d'autres moyen de transport, ie les lignes de métro est rattachée par d'autres arrêtes.
+En l'état :
+- de refaire les programmes de générations <-- OK c'était déjà le cas
+- Surtout de changer les fonctions poids <-- OK c'est fait
+- de légèrement changer les algo de parcours
+  • A* <-- c'est fait, ça fonctionne en théorie
+  • ...
+- de changer la fonction d'affichage
+
+On refait multi_A* (on va surement la renommer). Cette fonction devra résoudre le problème.
+--> Reprise des idées, des recheches, des cours d'info similaire.
+D'après transp-or.epfl.ch/optimization/slides/08-graphes.pdf on aurait un problème sur un graphe qui a des répercutions sur le graphe représentant la ville. voir les slides 26-35
+Si l'analyse du doc est correcte, notre histoire de minimalisation se résume par le problème de transbordement en utilisant :
+  a_ij = I(i,j)
+  b_ij = 0
+  c_ij = 1
+  s_0 = 1
+  s_f = -1
+  et b_ij <= x_ij <=c_ij où x_ij=w[i,j] avec w[i,j] le meilleur temps associé à un moyen de transport.
