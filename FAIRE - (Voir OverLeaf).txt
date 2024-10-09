@@ -60,7 +60,6 @@ Cela implique :
 Pour une fonction poids donnée w, pour i,j des étiquettes w[i,j] renvoie le poids de l'arrête i,j. Pour rappel les fonctions poids sont données par l'utilisateur (donc générées avant les calculs)
 Pour info on les refait en implémentant les modes de transport décrits.
 Durant l'implémentation on se rend compte que le métro peut passer à "sous les immeubles" (obstacles); on fournit à sa fonction poids l'ensemble des points où lignes de métro passent donc le graphe à considérer est plus grand.
-temp : finir métro avec la ligne "graph_modifié=graph # + points_traversés_par_métro"
 
 02/10/24
 Les poids sont implémentés. On note qu'il est nécessaire que les lignes de métro soient accessibles par d'autres moyen de transport, ie les lignes de métro est rattachée par d'autres arrêtes.
@@ -74,11 +73,25 @@ En l'état :
 
 On refait multi_A* (on va surement la renommer). Cette fonction devra résoudre le problème.
 --> Reprise des idées, des recheches, des cours d'info similaire.
-D'après transp-or.epfl.ch/optimization/slides/08-graphes.pdf on aurait un problème sur un graphe qui a des répercutions sur le graphe représentant la ville. voir les slides 26-35
-Si l'analyse du doc est correcte, notre histoire de minimalisation se résume par le problème de transbordement en utilisant :
-  a_ij = I(i,j)
+D'après transp-or.epfl.ch/optimization/slides/08-graphes.pdf on aurait un problème sur un graphe "virtuelle" qui a des répercutions sur le graphe physique : la ville. voir les slides 26-35
+Si l'analyse du doc est correcte, notre histoire de minimalisation se résume par le problème de transbordement (Transshipment problem) en utilisant :
+  a_ij = I(i,j)     (*)
   b_ij = 0
-  c_ij = 1
+  c_ij = 1 (ou majoré par max(w_k[i,j]))
   s_0 = 1
   s_f = -1
-  et b_ij <= x_ij <=c_ij où x_ij=w[i,j] avec w[i,j] le meilleur temps associé à un moyen de transport.
+  et b_ij <= x_ij <=c_ij où x_ij=w[i,j] avec w[i,j] le meilleur temps associé à un moyen de transport.    (*)
+
+09/10/24
+donc x_ij compris entre 0 et 1
+
+On a 3 imprécisions qui nous empêche de calquer ce qui nous a été présenté dans le doc.
+2 liées au poids :
+-on a définit w[i,j] pour i proche de j alors qu'on le veut pour i,j quelconque (après réflexion on peut pte le faire que pour i,j des étiquettes de points d'intérêt quelconque)
+-on a définit une fonction poids w_k pour chacun des moyens de transport (on choisira le poids le plus faible et on indiquera le moyen de transport utilisé :ok) mais comme x_ij=w[i,j] et qu'on a pas tenu compte de l'encadredement il faut réduire proportionellement les poids pour que max(w[i,j])<=1
+1 liée à la fonction intérêt I : 
+-Dans l'idée on fournit au programme une to do list de lieu à visiter (des points d'intérêt), c'est une liste classé (admettons du plus au moins important à voir). Comment passer à une fonction I(i,j) où i,j sont des étiquettes de ces lieux
+
+(*) Même si le problème de transbordement prend pour les a_ij la distance/le cout entre i et j nous on met l'inverse de l'intérêt, nous ce qui nous préoccupe c'est de trouver la combinaison de x_ij minimal ie les poids sur les arrêtes ij données.
+Faisons ce programme qui résout le problème de transbordement.
+On le simplifiera pour notre cas et on adaptera les trucs existants.
