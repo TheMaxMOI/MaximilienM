@@ -95,3 +95,20 @@ On a 3 imprécisions qui nous empêche de calquer ce qui nous a été présenté
 (*) Même si le problème de transbordement prend pour les a_ij la distance/le cout entre i et j nous on met l'inverse de l'intérêt, nous ce qui nous préoccupe c'est de trouver la combinaison de x_ij minimal ie les poids sur les arrêtes ij données.
 Faisons ce programme qui résout le problème de transbordement.
 On le simplifiera pour notre cas et on adaptera les trucs existants.
+
+16/10/24
+Autre ressource : perso.esiee.fr/~talboth/ESIEE/IF4-ALG2/pdf/07_transport_formulation.pdf
+Dans notre problème on veut que
+envie fort * trajet long --> Intérêt réduit
+envie faible * trajet court --> Intérêt augmenté
+envie fort * trajet court --> Intérêt fort
+envie faible * trajet long --> Intérêt faible
+On maximise la somme des intérêts en fonction de tout les trajets possibles qui eux-même dépendent des moyens de transports et ce en obligeant de passer par tous les lieux.
+intérêts = f(envie)/g(trajet) où f et g sont croissantes
+
+Après discussion on le fait pour UN moyen de transport --> à pieds et dans un graphe connexe
+Il faut fournir au programme :
+ un graphe G (une ville)
+ une liste de [[envie],[étiquette]]
+ une matrice de temps de trajet qui pour étiquette1,étiquette2 renvoie le temps de trajet
+voir trajet_optimal.ipynb
