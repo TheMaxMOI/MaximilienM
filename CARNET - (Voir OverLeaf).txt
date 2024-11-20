@@ -112,3 +112,8 @@ Il faut fournir au programme :
  une liste de [[envie],[étiquette]]
  une matrice de temps de trajet qui pour étiquette1,étiquette2 renvoie le temps de trajet
 voir trajet_optimal.ipynb
+
+20/11/24
+
+Le simplexe est codé ! Bon il fonction sur l'exemple de la vidéo youtube.com/watch?v=i8vnEZi3e4A
+Le problème c'est qu'il oscille entre des solutions. Il y a aussi un problème qui venait de la fonction update qui faisait des effets de bords. 
