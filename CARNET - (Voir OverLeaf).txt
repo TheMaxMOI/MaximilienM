@@ -116,4 +116,31 @@ voir trajet_optimal.ipynb
 20/11/24
 
 Le simplexe est codé ! Bon il fonction sur l'exemple de la vidéo youtube.com/watch?v=i8vnEZi3e4A
-Le problème c'est qu'il oscille entre des solutions. Il y a aussi un problème qui venait de la fonction update qui faisait des effets de bords. 
+Le problème c'est qu'il oscille entre des solutions. Il y a aussi un problème qui venait de la fonction update qui faisait des effets de bords.
+Tout est réglé.
+
+27/11/24
+Le simplexe fonctionne. L'algo codé ne fournit pas toujours le meilleur de résultat à un problème donné.
+On voit si cette ressource permet de régler ce problème youtube.com/watch?v=PTJzpHreHrc.
+--> Non mais complète la compréhension de l'algo.
+
+On fait le point par rapport aux objectifs de programmation :
+1. Les poids pour les moyens de transports, c'est fait
+3. La fonction "minimisation" - l'algo du simplexe, c'est fait DANS LE CAS où il n'y aurait qu'UN TYPE DE POIDS
+2. 
+
+11/12/24
+Utilisation du Simplexe
+Pour des intérêts --> les coeff devant les variables
+et un ensemble de distances --> valeurs possibles des variables 
+On trouve les distances optimales entre les lieux de la manière suivant:
+Comme ces distances entre chaque lieux sont bornées par la pire et la meilleur en fonction des moyens de transport.
+On fait le simplexe qui trouve une solution entre ces bornes.
+(Il n'y a aucune raison qu'il renvoie des distances de l'ensemble) Donc on sélectionne un couple de distance de l'ensemble proche du vecteur solution de l'algo.
+
+
+
+I. établir l'ordre le plus intéressant des points d'intérêt (choix peut-être arbitraire au final)
+II. Entre chaque lieu trouver tout les plus court chemin en fonction des combinaisons de moyen de transport
+III. Faire le simplexe comme décrit ci-dessus
+IIII. En déduire l'enchainement des moyens de transports
